@@ -1,7 +1,7 @@
 import React from "react";
-import PropTypes from "prop-types";
+import EducationItem from "./EducationItem";
 
-const Education = (props) => {
+const Education = ({ educations }) => {
   return (
     <div>
       <h2 className="my-2">Education Credentials</h2>
@@ -15,20 +15,13 @@ const Education = (props) => {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Northern Essex</td>
-            <td className="hide-sm">Associates</td>
-            <td className="hide-sm">02-03-2007 - 01-02-2009</td>
-            <td>
-              <button className="btn btn-danger">Delete</button>
-            </td>
-          </tr>
+          {educations.map((education) => (
+            <EducationItem key={education._id} education={education} />
+          ))}
         </tbody>
       </table>
     </div>
   );
 };
-
-Education.propTypes = {};
 
 export default Education;
