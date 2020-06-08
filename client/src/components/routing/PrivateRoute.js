@@ -13,10 +13,13 @@ const PrivateRoute = ({
   // If loading return the spinner otherwise return a route that checks inside the render if user isAuthenticated
   return loading ? (
     <Spinner />
-  ) : isAuthenticated ? (
-    <Route {...otherProps} render={(props) => <Component {...props} />} />
   ) : (
-    <Redirect to="/login" />
+    <Route
+      {...otherProps}
+      render={(props) =>
+        isAuthenticated ? <Component {...props} /> : <Redirect to="/login" />
+      }
+    />
   );
 };
 

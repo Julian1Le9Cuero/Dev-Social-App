@@ -105,6 +105,7 @@ router.get("/", async (req, res) => {
     if (!profiles) {
       return res.status(404).json("No profiles found.");
     }
+    // Send profiles array
     res.json(profiles);
   } catch (error) {
     console.error(error.message);

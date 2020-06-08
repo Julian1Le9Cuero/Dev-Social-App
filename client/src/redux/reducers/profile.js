@@ -3,6 +3,8 @@ import {
   PROFILE_ERROR,
   GET_PROFILE,
   CLEAR_PROFILE,
+  GET_PROFILES,
+  GET_REPOS,
 } from "../actions/types";
 
 const initialState = {
@@ -10,6 +12,7 @@ const initialState = {
   profile: null,
   error: {},
   loading: true,
+  repos: [],
 };
 
 export default (state = initialState, action) => {
@@ -22,13 +25,31 @@ export default (state = initialState, action) => {
         profile: payload,
         loading: false,
       };
+    case GET_PROFILES:
+      return {
+        ...state,
+        profiles: [...payload],
+        loading: false,
+        profile: null,
+      };
+    case GET_REPOS:
+      return {
+        ...state,
+        repos: payload,
+        loading: false,
+      };
     case PROFILE_ERROR:
-    case CLEAR_PROFILE:
       return {
         ...state,
         profile: null,
         loading: false,
         error: payload,
+      };
+    case CLEAR_PROFILE:
+      return {
+        ...state,
+        profile: null,
+        loading: false,
       };
     default:
       return state;
