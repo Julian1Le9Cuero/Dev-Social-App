@@ -43,7 +43,8 @@ router.post(
 // @access Private
 router.get("/", auth, async (req, res) => {
   try {
-    const posts = await Post.find();
+    // Return posts in descending order by date
+    const posts = await Post.find().sort({ date: -1 });
     if (!posts) {
       return res.status(404).json("No posts found.");
     }
@@ -182,6 +183,29 @@ router.delete("/comments/:post_id/:comment_id", auth, async (req, res) => {
     );
     await post.save();
     res.json(post.comments);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Server error.");
+  }
+});
+
+// @route DELETE /api/posts/:post_id
+// @desc  Delete a post
+// @access Private
+router.delete("/:post_id", auth, async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.post_id);
+    if (!post) {
+      return res.status(404).json("Post not found.");
+    }
+    // Make sure that the user is the owner of the post
+    if (post.user.toString() !== req.user) {
+      return res.status(404).json("Post not found.");
+    }
+
+    // Delete post
+    await post.remove();
+    res.json(req.params.post_id);
   } catch (error) {
     console.error(error.message);
     res.status(500).send("Server error.");
