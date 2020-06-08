@@ -1,0 +1,5 @@
+{
+  "mongoURI": "mongodb+srv://challenge1:challenge1@cluster0-khdmu.mongodb.net/challenge2?retryWrites=true&w=majority",
+  "jsonSecret": "rice2with2milk",
+  "githubToken": "5a1db58b3b8de0ecb1fdb27a683402d831bc4605"
+}
